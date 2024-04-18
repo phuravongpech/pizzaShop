@@ -1,0 +1,65 @@
+admin/
+    -dashboard : 
+    -products: 
+        products :
+            total product quantity
+            add menu: 
+                food
+                food category
+                name
+                price
+                size?
+        category : menu food pizza drink...
+        
+    -order
+        lists of recent order.
+
+    -customer
+        lists all customer/users
+
+user setting/
+    -profile : show user profile
+        edit profile
+    -address
+        add new address 
+        edit
+        delete 
+    -order
+        recent order/history
+        summary of order
+        when too much, loads to more
+    -password
+        form to change password
+
+home page
+
+menu/ 
+    - sort by? do or not jam mer setting
+    -pizza : list all pizza
+    -appetizer : pastas..
+    -drink
+
+    -product_detail : each item can be added to cart, in the cart view
+        img
+        description
+        size s m l
+        price
+        quantity
+        add to cart
+
+
+cart/
+    -need API stripe to remember token and remember the food added to cart
+    -cart display all food in the cart
+        each contains :
+            img
+            description
+            size s m l
+            price
+            quantity
+        
+    -delivery address
+    -order summary : total price
+
+about us
+    
