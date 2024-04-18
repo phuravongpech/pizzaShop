@@ -23,3 +23,18 @@ Route::get('/about', function () {
 Route::get('/product', function () {
     return view('product');
 });
+Route::get('/profile', function () {
+    return view('user.profile');
+})->name('profile');
+
+Route::get('/address', function () {
+    return view('user.address');
+})->name('address');
+
+Route::get('/password', function () {
+    return view('user.password');
+})->name('password');
+
+Route::get('/order', function () {
+    return view('user.order');
+})->name('order');
