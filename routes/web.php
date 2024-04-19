@@ -27,28 +27,18 @@ Route::get('/about', function () {
 Route::get('/product', function () {
     return view('product');
 });
-Auth::routes();
+Route::get('/profile', function () {
+    return view('user.profile');
+})->name('profile');
 
-Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
-Route::get('registration', [AuthController::class, 'registration'])->name('register');
-Route::post('post-registration', [AuthController::class, 'postRegister'])->name('register.post'); 
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-  
-/* New Added Routes */
-Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware(['auth', 'is_verify_email']); 
-Route::get('account/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify'); 
+Route::get('/address', function () {
+    return view('user.address');
+})->name('address');
 
+Route::get('/password', function () {
+    return view('user.password');
+})->name('password');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::post('/session', [StripeController::class, 'session'])->name('session');
-Route::get('/success', [StripeController::class, 'success'])->name('success');
-Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
- 
-Route::get('/', [FoodsController::class, 'index']);
-Route::get('cart', [FoodsController::class, 'cart'])->name('cart');
-Route::get('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
-Route::patch('update-cart', [FoodsController::class, 'update'])->name('update_cart');
-Route::delete('remove-from-cart', [FoodsController::class, 'remove'])->name('remove_from_cart');
-
+Route::get('/order', function () {
+    return view('user.order');
+})->name('order');
