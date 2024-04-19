@@ -1,21 +1,31 @@
 admin/
     -dashboard : 
+        - Overview of recent activities, sales, and other important metrics.
     -products: 
-        products :
-            total product quantity
-            add menu: 
-                food
-                food category
-                name
-                price
-                size?
-        category : menu food pizza drink...
-        
-    -order
-        lists of recent order.
+        - Products:
+            - Total product quantity
+            - Add menu: 
+                - Food
+                - Food category
+                - Name
+                - Price
+                - Size (optional)
+                - Image upload
+            - Edit menu:
+                - Ability to edit existing menu items (e.g., change price, category, etc.)
+            - Remove menu:
+                - Ability to remove existing menu items
+        - Category:
+            - Manage categories for better organization of menu items (e.g., menu, food, pizza, drinks)
+    -order:
+        - Lists of recent orders:
+            - View detailed information about recent orders including order number, items ordered, total amount, customer details, and status.
+            - Ability to update order status (e.g., mark as pending, completed, canceled)
+    -customer:
+        - Lists all customers/users:
+            - View list of registered customers with details such as name, contact information, order history.
+            - Ability to manage customer accounts (e.g., edit profile information, reset passwords).
 
-    -customer
-        lists all customer/users
 
 user setting/
     -profile : show user profile
@@ -34,7 +44,7 @@ user setting/
 home page
 
 menu/ 
-    - sort by? do or not jam mer setting
+    - sort by? do or not jam mer sin
     -pizza : list all pizza
     -appetizer : pastas..
     -drink
@@ -46,7 +56,6 @@ menu/
         price
         quantity
         add to cart
-
 
 cart/
     -need API stripe to remember token and remember the food added to cart
