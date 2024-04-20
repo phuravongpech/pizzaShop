@@ -31,10 +31,10 @@
                 <a href="contact.html" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact Us</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                <a class="btn-sm-square bg-white rounded-circle ms-3" href="/profile">
                     <small class="fa fa-user text-body"></small>
                 </a>
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                <a class="btn-sm-square bg-white rounded-circle ms-3" href="/viewcart">
                     <small class="fa fa-shopping-bag text-body"></small>
                 </a>
             </div>

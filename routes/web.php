@@ -53,4 +53,11 @@ Route::get('/food-detail', function () {
     return view('food-detail');
 })->name('food-detail');
 
+Route::get('/cart', function () {
+    return view('cart.cart');
+})->name('cart');
+
+Route::get('/viewcart', function () {
+    return view('viewcart');
+})->name('view-cart');
 

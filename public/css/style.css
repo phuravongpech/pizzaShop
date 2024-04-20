@@ -234,6 +234,12 @@
     transform: translateX(0);
 }
 
+body { 
+    font-family: "Jost", serif;
+    font-weight: 600;
+
+}
+
 
 
 /*** About ***/
