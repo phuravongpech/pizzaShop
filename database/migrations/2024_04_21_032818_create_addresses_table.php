@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('street');
             $table->string('city');
             $table->text('extra_instructions')->nullable();
-            $table->char('is_primary');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\FoodsController;
+use App\Http\Controllers\FoodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +25,11 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
+// Route::get('/menu', function () {
+//     return view('menu');
+// })->name('menu');
+
+Route::get('/menu', [FoodController::class, 'index']);
 
 Route::get('/contact', function () {
     return view('contact');

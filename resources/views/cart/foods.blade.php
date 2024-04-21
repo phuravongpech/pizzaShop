@@ -1,4 +1,4 @@
-@extends('cart.layout')
+{{-- @extends('cart.layout')
      
 @section('content')
       
@@ -19,4 +19,4 @@
 </div>
 
 @endsection
-      
+       --}}

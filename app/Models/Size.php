@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Size extends Model
 {
     use HasFactory;
+
+    protected $table = 'sizes';
+
+    protected $fillable = [
+        'name',
+        'price_modifier',
+    ];
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }

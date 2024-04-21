@@ -1,4 +1,4 @@
-@extends('cart.layout')
+{{-- @extends('cart.layout')
     
 @section('content')
 <table id="cart" class="table table-hover table-condensed">
@@ -97,4 +97,4 @@
     });
     
 </script>
-@endsection
+@endsection --}}
