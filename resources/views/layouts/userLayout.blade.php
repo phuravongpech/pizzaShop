@@ -31,12 +31,24 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <!-- Responsive Stylesheet -->
     <style>
         body{
             margin-top:20px;
             background-color:#f2f6fc;
             color:#69707a;
+            }
+
+            
+        body header head {
+            background-color:#f2f6fc;
+            color:#69707a;
+            font-family: "Jost", sans-serif;
+            font-optical-sizing: auto;
             }
             .nav-borders .nav-link.active {
                 color: #0061f2;

@@ -3,7 +3,7 @@
 @section('content')
 
 <section>
-    <div class="container border-top " style=" height: 660px; margin-top: 150px">
+    <div class="container border-top " style=" height: auto; margin-top: 150px; margin-bottom: 150px">
         <div class="row align-items-center">
             <div class="col-lg-5 justify-content-center mx-2">
                 <ul class="img-sidebar ">
@@ -24,7 +24,7 @@
                 <h3 id="productPriceValue" class="my-md-5">
                     <b class="mr-1">$<span class="product_fixed_price">18.00</span></b>
                 </h3>
-                <div class="container border-bottom pb-4">
+                <div class="container pb-4">
                     <div class="row">
                         <div class="col-2">
                             <h5>
@@ -42,6 +42,25 @@
                             <label class="radio d-inline-block txt-14 mr-2">
                                 <input id="lineRadio-246" name="var_79" vid="79" optid="246" value="246" type="radio" class="changeVariant dataVar79">
                                 <span class="checkround m-1"></span>Large
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="container border-bottom pb-4 mt-4">
+                    <div class="row">
+                        <div class="col-3">
+                            <h5>Crust Type:</h5>
+                        </div>
+                        <div class="col-3">
+                            <label class="radio d-inline-block txt-14">
+                                <input id="thickCrust" name="crustType" type="radio" class="crustType" value="thick" checked>
+                                <span class="checkround m-1"></span>Thick
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <label class="radio d-inline-block txt-14 mr-2">
+                                <input id="thinCrust" name="crustType" type="radio" class="crustType" value="thin">
+                                <span class="checkround m-1"></span>Thin
                             </label>
                         </div>
                     </div>

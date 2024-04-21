@@ -22,7 +22,7 @@
 </style>
 
 <section>
-    <div class="container " style="height: 1000px; margin-top: 150px">
+    <div class="container " style="height: auto; margin-top: 150px; margin-bottom: 100px">
         <div class="row">
             <div class="col-12 mb-2">
                 <i class="fa fa-arrow-left mx-2" aria-hidden="true"></i>
@@ -45,27 +45,30 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-5 text-center">
-                            <span>PRODUCT DETAILS</span>
-                        </div>
-                        <div class="col-lg-2  text-center">
-                            <span class="ps-5">
-                                PRICE
-                            </span>
-                        </div>
-                        <div class="col-lg-2 text-center">
-                            <span>
-                                QUANTITY
-                            </span>
-                        </div>
-                        <div class="col-lg-3 text-center">
-                            <span>
-                                TOTAL
-                            </span>
+                    <div class="title-table">
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <span>PRODUCT DETAILS</span>
+                            </div>
+                            <div class="col-lg-2  text-center">
+                                <span class="ps-5">
+                                    PRICE
+                                </span>
+                            </div>
+                            <div class="col-lg-2 text-center">
+                                <span>
+                                    QUANTITY
+                                </span>
+                            </div>
+                            <div class="col-lg-3 text-center">
+                                <span>
+                                    TOTAL
+                                </span>
+                            </div>
                         </div>
                     </div>
                     {{-- each product in Cart --}}
+                    {{-- for each food --}}
                     <div class="product-cart">
                         <div class="row mt-4 mb-3 border-1 border-bottom pe-3">
                             <div class="col-lg-3 col-md-2">
@@ -80,7 +83,7 @@
                                                     Pizza Name
                                                 </h4>
                                             </div>
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-12 mt-3">
                                                 <h6>
                                                     Product Details:
                                                 </h6>
@@ -90,9 +93,12 @@
                                                     Mozzarella Cheese, Pizza Sauce
                                                 </h6>
                                             </div>
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-12 mt-3">
                                                 <h6 class="d-flex">
                                                     Size: <p>Medium</p>
+                                                </h6>
+                                                <h6 class="d-flex">
+                                                    Crust Type: <p>Thick</p>
                                                 </h6>
                                             </div>
                                         </div>
@@ -116,13 +122,135 @@
                                     <div class="col-lg-2 px-4" style="">69.99$</div>
                                     <div class="col" style="width: 50px">
                                         <a class="action-icon d-block remove_product_via_cart" style="cursor: pointer;" data-product="34830" data-vendor_id="42">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="product-cart">
+                        <div class="row mt-4 mb-3 border-1 border-bottom pe-3">
+                            <div class="col-lg-3 col-md-2">
+                                <img class="img-fluid px-2" src="/img/pizzacom.jpg" alt="">
+                            </div>
+                            <div class="col-lg-9 col-md-10 ">
+                                <div class="row p-0 mr-0">
+                                    <div class="col-lg-4">
+                                        <div class="row p-3 ps-0">
+                                            <div class="col-lg-12">
+                                                <h4>
+                                                    Pizza Name
+                                                </h4>
+                                            </div>
+                                            <div class="col-lg-12 mt-3">
+                                                <h6>
+                                                    Product Details:
+                                                </h6>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h6>
+                                                    Mozzarella Cheese, Pizza Sauce
+                                                </h6>
+                                            </div>
+                                            <div class="col-lg-12 mt-3">
+                                                <h6 class="d-flex">
+                                                    Size: <p>Medium</p>
+                                                </h6>
+                                                <h6 class="d-flex">
+                                                    Crust Type: <p>Thick</p>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 p-0" style="width: 100px" >h</div>
+                                    <div class="col-lg-3 d-flex p-0">
+                                        <div class=" mb-3 border border-1 d-flex" style=" width: 150px; height: 40px; border-radius: 5px;">
+                                            <div class="d-flex " >
+                                                <span class="input-group-prepend">
+                                                    <button type="button" class="btn quantity-left-minus" data-type="minus" data-field="" data-batch_count=1 data-minimum_order_count=1><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                                </span>
+                                                <input type="text" name="quantity"  onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}" id="quantity" class="form-control input-qty-number quantity_count"  value="1" data-minimum_order_count=1>
+                                                <span class="input-group-prepend quant-plus">
+                                                    <button type="button" class="btn quantity-right-plus" data-type="plus" data-field="" data-batch_count=1 data-minimum_order_count=1>
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 px-4" style="">69.99$</div>
+                                    <div class="col" style="width: 50px">
+                                        <a class="action-icon d-block remove_product_via_cart" style="cursor: pointer;" data-product="34830" data-vendor_id="42">
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-cart">
+                        <div class="row mt-4 mb-3 border-1 border-bottom pe-3">
+                            <div class="col-lg-3 col-md-2">
+                                <img class="img-fluid px-2" src="/img/pizzacom.jpg" alt="">
+                            </div>
+                            <div class="col-lg-9 col-md-10 ">
+                                <div class="row p-0 mr-0">
+                                    <div class="col-lg-4">
+                                        <div class="row p-3 ps-0">
+                                            <div class="col-lg-12">
+                                                <h4>
+                                                    Pizza Name
+                                                </h4>
+                                            </div>
+                                            <div class="col-lg-12 mt-3">
+                                                <h6>
+                                                    Product Details:
+                                                </h6>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h6>
+                                                    Mozzarella Cheese, Pizza Sauce
+                                                </h6>
+                                            </div>
+                                            <div class="col-lg-12 mt-3">
+                                                <h6 class="d-flex">
+                                                    Size: <p>Medium</p>
+                                                </h6>
+                                                <h6 class="d-flex">
+                                                    Crust Type: <p>Thick</p>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 p-0" style="width: 100px" >h</div>
+                                    <div class="col-lg-3 d-flex p-0">
+                                        <div class=" mb-3 border border-1 d-flex" style=" width: 150px; height: 40px; border-radius: 5px;">
+                                            <div class="d-flex " >
+                                                <span class="input-group-prepend">
+                                                    <button type="button" class="btn quantity-left-minus" data-type="minus" data-field="" data-batch_count=1 data-minimum_order_count=1><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                                </span>
+                                                <input type="text" name="quantity"  onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}" id="quantity" class="form-control input-qty-number quantity_count"  value="1" data-minimum_order_count=1>
+                                                <span class="input-group-prepend quant-plus">
+                                                    <button type="button" class="btn quantity-right-plus" data-type="plus" data-field="" data-batch_count=1 data-minimum_order_count=1>
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 px-4" style="">69.99$</div>
+                                    <div class="col" style="width: 50px">
+                                        <a class="action-icon d-block remove_product_via_cart" style="cursor: pointer;" data-product="34830" data-vendor_id="42">
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    {{-- end for each food --}}
                 </div>
                 {{-- pick address --}}
                 <div class="pick-add box_shadow mt-4">

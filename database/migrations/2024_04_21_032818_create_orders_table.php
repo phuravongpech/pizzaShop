@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('users_verify');
-        
-        Schema::create('users_verify', function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->string('token');
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('customer_id')->unsigned();
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamp('order_date')->useCurrent();
             $table->timestamps();
-        });
-  
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_email_verified')->default(0);
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_verify');
+        Schema::dropIfExists('orders');
     }
 };

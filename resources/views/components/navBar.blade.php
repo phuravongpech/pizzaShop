@@ -34,7 +34,7 @@
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="/profile">
                     <small class="fa fa-user text-body"></small>
                 </a>
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="/viewcart">
+                <a class="btn-sm-square bg-white rounded-circle ms-3" href="/viewcart" data-bs-target="dropdown">
                     <small class="fa fa-shopping-bag text-body"></small>
                 </a>
             </div>

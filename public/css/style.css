@@ -6,6 +6,13 @@
     --dark: #111111;
 }
 
+body header head {
+    background-color:#f2f6fc;
+    color:#69707a;
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    }
+
 .back-to-top {
     position: fixed;
     display: none;
@@ -97,7 +104,8 @@
 .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";
-    font-family: "Font Awesome 5 Free";
+    font-family: "Jost", serif;
+
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
@@ -377,7 +385,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 .footer .btn.btn-link::before {
     position: relative;
     content: "\f105";
-    font-family: "Font Awesome 5 Free";
+        font-family: "Jost", serif;
+
     font-weight: 900;
     color: #999999;
     margin-right: 10px;
