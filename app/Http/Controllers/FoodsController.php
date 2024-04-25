@@ -9,7 +9,7 @@ class FoodsController extends Controller
 {
     public function index(){
         $foods = Food::all();
-        return view('cart.foods',compact('foods'));
+        return view('menu',compact('foods'));
     }
     public function cart(){
         return view('cart.cart');

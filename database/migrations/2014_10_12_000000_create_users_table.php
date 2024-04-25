@@ -25,16 +25,6 @@ return new class extends Migration
         });
     }
 
-    App\Models\User::create([
-        'name' => 'vong',
-        'email' => 'vong@gmail.com',
-        'password' => bcrypt('123456'),
-        'phone_num' => '0123456789',
-        'description' => 'I am a developer',
-    ]);
-
-    
-
     /**
      * Reverse the migrations.
      */

@@ -2,9 +2,14 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FoodController;
+use App\Http\Controllers\FoodsController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\Auth\AuthController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\FoodController;
+=======
+>>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +34,11 @@ Route::get('/about', function () {
 //     return view('menu');
 // })->name('menu');
 
+<<<<<<< Updated upstream
 Route::get('/menu', [FoodController::class, 'index']);
+=======
+// Route::get('/menu', [FoodController::class, 'index']);
+>>>>>>> Stashed changes
 
 Route::get('/contact', function () {
     return view('contact');
@@ -78,6 +87,7 @@ Route::get('/viewcart', function () {
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+<<<<<<< Updated upstream
 // Route::post('/session', [StripeController::class, 'session'])->name('session');
 // Route::get('/success', [StripeController::class, 'success'])->name('success');
 // Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
@@ -87,3 +97,15 @@ Route::get('/viewcart', function () {
 // Route::get('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
 // Route::patch('update-cart', [FoodsController::class, 'update'])->name('update_cart');
 // Route::delete('remove-from-cart', [FoodsController::class, 'remove'])->name('remove_from_cart');
+=======
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
+Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+Route::get('/stripe/webhook',[StripeController::class,'handleWebhook']);
+ 
+Route::get('/menu', [FoodsController::class, 'index']);
+Route::get('cart', [FoodsController::class, 'cart'])->name('cart');
+Route::get('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
+Route::patch('update-cart', [FoodsController::class, 'update'])->name('update_cart');
+Route::delete('remove-from-cart', [FoodsController::class, 'remove'])->name('remove_from_cart');
+>>>>>>> Stashed changes

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('address_type');
             $table->string('address_detail');
-            $table->bigInteger('address_no');
+            $table->string('address_no');
             $table->string('street');
             $table->string('city');
             $table->text('extra_instructions')->nullable();
