@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Address;
 
 class UserController extends Controller
 {
@@ -12,7 +13,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+
+        return view('user.profile', [ 'user' => $user ]);
+    }
+
+    public function address()
+    {
+        $user = auth()->user();
+
+        $addresses = Address::where('customer_id', $user->id)->get();
+
+        return view('user.address', [ 'addresses' => $addresses , 'user' => $user]);
+
     }
 
     /**

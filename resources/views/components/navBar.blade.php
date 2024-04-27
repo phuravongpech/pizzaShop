@@ -28,7 +28,7 @@
                 <a href="/about" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">About Us</a>
                 <a href="/menu" class="nav-item nav-link {{ Request::is('menu') ? 'active' : '' }}">Menu</a>
                 
-                <a href="contact.html" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact Us</a>
+                <a href="" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact Us</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="/profile">

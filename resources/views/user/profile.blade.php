@@ -19,15 +19,17 @@
                                     <div class="ms-3">
                                         <div>
                                             <h4 class="card-title my-10">Profile</h4>
-                                            <h4 class="text-primary font-size-20 mt-3 mb-2">Jansh Wells</h4>
+                                            <h4 class="text-primary font-size-20 mt-3 mb-2"> {{$user->name}}</h4>
 
                                         </div>
                                         <div class="row my-4">
                                             <div class="col-md-12">
                                                 <div>
-                                                    <p class="text-muted mb-2 fw-medium"><i class="mdi mdi-email-outline me-2"></i>Janshwells@probic.com
+                                                    <p class="text-muted mb-2 fw-medium"><i class="mdi mdi-email-outline me-2"></i>
+                                                        {{$user->email}}
                                                     </p>
-                                                    <p class="text-muted fw-medium mb-0"><i class="mdi mdi-phone-in-talk-outline me-2"></i>418-955-4703
+                                                    <p class="text-muted fw-medium mb-0"><i class="mdi mdi-phone-in-talk-outline me-2"></i>
+                                                        {{$user->phone_num}}
                                                     </p>
                                                 </div>
                                             </div><!-- end col -->

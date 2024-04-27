@@ -3,8 +3,8 @@
 @section('content')
 <div class="container border border-1 p-5 mb-5 mt-5 me-10" style="border-radius: 20px" >
     <div class="row justify-content-center">
-        <div class="col-md-14"  id="edit_new_address_form">
-            <div class="theme-card w-100">
+        <div class="col-md-14 "  id="edit_new_address_form">
+            <div class="theme-card  w-100">
                 <div class="row">
                     <div class="col-md-12 mb-5">
                         <label for="old_password" class="mb-2"> Old Password : </label>

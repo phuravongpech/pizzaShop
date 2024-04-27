@@ -53,10 +53,10 @@
                                     </div>
                                     <a class="d-block h5 mb-1 " href="">
                                         <div class="text-center p-4">
-                                            <a class="d-block h5 mb-2" href="">
+                                            <a class="d-block h5 mb-2" href="{{ route('food-detail', $food->id ) }}">
                                                 {{$food->name}}
                                             </a>
-                                            <a class="d-block h6 mb-2" href="">
+                                            <a class="d-block h6 mb-2 description" href="">
                                                 {{$food->desc}}
                                             </a>
                                             <div class="mt-3 p-3 border-top">

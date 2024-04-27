@@ -1,64 +1,10 @@
 @extends('layouts.userLayout')
 
 @section('content')
-    <style>
+<h1>
+</h1>    
+    <style>  
             
-            .img-account-profile {
-                height: 10rem;
-            }
-            .rounded-circle {
-                border-radius: 50% !important;
-            }
-            .card {
-                box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
-            }
-            .card .card-header {
-                font-weight: 500;
-            }
-            .card-header:first-child {
-                border-radius: 0.35rem 0.35rem 0 0;
-            }
-            .card-header {
-                padding: 1rem 1.35rem;
-                margin-bottom: 0;
-                background-color: rgba(33, 40, 50, 0.03);
-                border-bottom: 1px solid rgba(33, 40, 50, 0.125);
-            }
-            .form-control, .dataTable-input {
-                display: block;
-                width: 100%;
-                padding: 0.875rem 1.125rem;
-                font-size: 0.875rem;
-                font-weight: 400;
-                line-height: 1;
-                color: #69707a;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #c5ccd6;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                border-radius: 0.35rem;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-            }
-
-            .nav-borders .nav-link.active {
-                color: #0061f2;
-                border-bottom-color: #0061f2;
-            }
-            .nav-borders .nav-link {
-                color: #69707a;
-                border-bottom-width: 0.125rem;
-                border-bottom-style: solid;
-                border-bottom-color: transparent;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-                padding-left: 0;
-                padding-right: 0;
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-
             .order-address .outer-box.border-dashed {
                 border-style: dashed;
                 border-width: 2px;
@@ -71,7 +17,7 @@
                 flex-direction: column;
                 padding: 15px;
                 background-color: #fff;
-                box-shadow: 0 4px 25px 0 rgb(138 129 124 / 3%)
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
             }
 
             .address-btn a, .form-btn {
@@ -91,9 +37,9 @@
         <div class="page-title">
             <h2>Address Book</h2>
         </div>
-        <div class="box-account box-info order-address">
+        <div class="box-account box-info order-address mb-5">
             <div class="row">
-                <div class="col-xl-4 col-md-6 text-center mt-md-2">
+                <div class="col-xl-4 col-md-6 text-center mt-2 mb-3">
                     <a class="outer-box border-dashed d-flex align-items-center justify-content-center open-modal" href="" data-bs-toggle="modal" data-bs-target="#add_address">
                         <i class="fa fa-plus-circle d-block mr-1" aria-hidden="true"></i>
                         <h6 class="m-0">
@@ -101,26 +47,29 @@
                         </h6>
                     </a>
                 </div>
-                <div class="col-xl-4 col-md-6 mt-2">
-                    <div class="outer-box px-0">
+                {{-- for each here --}}
+                @foreach ($addresses as $address)
+                <div class="col-xl-4 col-md-6 mt-2 mb-3 box-shadow">
+                    <div class="outer-box px-0" style="border-radius: 25px">
                         <div class="address-type w-100">
-                            <div class="default_address border-bottom mb-1 px-2">
-                                <h6 class="mt-0 mb-2"><i class="fa fa-home mr-1" aria-hidden="true"></i> Home</h6>
+                            <div class="default_address border-bottom mb-1 ps-3">
+                                <h6 class="mt-0 mb-2"><i class="fa fa-home mr-1" aria-hidden="true"></i> {{$address->address_type}}</h6>
                             </div>
                             <div class="px-2">
-                                <p class="mb-1">88, 2Q8F+P9 Mulelemba, Zambia</p>
-                                <p class="mb-1">h88</p>
-                                <p class="mb-1">yes, yes 123</p>
-                                <p class="mb-1">YEMEN</p>
+                                <p class="mb-1 ps-2">{{$address->address_detail}}</p>
+                                <p class="mb-1 ps-2">{{$address->address_no}}</p>
+                                <p class="mb-1 ps-2">{{$address->street}}</p>
+                                <p class="mb-1 ps-2">{{$address->city}}</p>
                             </div>
                         </div>
                         <div class="address-btn align-items-end justify-content-end w-100 mt-sm-4 px-2">
-                            <a class="btn btn-solid bg-primary text-dark mx-1" href="#">Set As Primary</a>
                             <a class="btn btn-solid open-modal bg-primary text-dark mx-1" href="" data-bs-toggle="modal" data-bs-target="#edit_address">Edit</a>
                             <a class="btn btn-solid delete_address_btn bg-primary text-dark mx-1" href="" data-bs-toggle="modal" data-bs-target="#removeAddressConfirmation">Delete</a>
                         </div>
                     </div>
                 </div>
+                @endforeach
+                {{-- end foreach --}}
             </div>
         </div>
     </div>

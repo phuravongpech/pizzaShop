@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FoodsController extends Controller
 {
@@ -12,25 +13,38 @@ class FoodsController extends Controller
         return view('menu',compact('foods'));
     }
     public function cart(){
-        return view('cart.cart');
+        return view('viewcart');
     }
-    public function addToCart($id){
-        $food = Food::findOrFail($id);
-        $cart = session()->get('cart',[]);
-        if(isset($cart[$id])){
-            $cart[$id]['quantity']++;
+    public function addToCart($id)
+    {
+        $validator = Validator::make(['id' => $id], [ // Validate request data
+            'id' => 'required|integer|exists:food,id',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
-        else{
-            $cart[$id]=[
-                "food_name" => $food->food_name,
-                "photo" => $food->photo,
+
+        $food = Food::findOrFail($id);
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "food_name" => $food->name,
+                "food_image" => $food->image,
+                "food_desc" => $food->desc,
                 "price" => $food->price,
                 "quantity" => 1,
             ];
         }
-        session()->put('cart',$cart);
-        return redirect()->back()->with('success','Food add to cart!!');
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Food added to cart!!');
     }
+
+
     public function update(Request $request){
         if($request->id && $request->quantity){
             $cart = session()->get('cart');

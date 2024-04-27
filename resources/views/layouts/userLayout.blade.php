@@ -8,69 +8,8 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="/img/favicon.ico" rel="icon">
+    @include('components.stylesheets')
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet"> 
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <!-- Responsive Stylesheet -->
-    <style>
-        body{
-            margin-top:20px;
-            background-color:#f2f6fc;
-            color:#69707a;
-            }
-
-            
-        body header head {
-            background-color:#f2f6fc;
-            color:#69707a;
-            font-family: "Jost", sans-serif;
-            font-optical-sizing: auto;
-            }
-            .nav-borders .nav-link.active {
-                color: #0061f2;
-                border-bottom-color: #0061f2;
-            }
-            .nav-borders .nav-link {
-                color: #69707a;
-                border-bottom-width: 0.125rem;
-                border-bottom-style: solid;
-                border-bottom-color: transparent;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-                padding-left: 0;
-                padding-right: 0;
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-            .nav-borders .nav-link:hover {
-                color: #0b449a;
-                font-weight: 700;
-            }
-    </style>
 </head>
 
 <body>

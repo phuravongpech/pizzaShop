@@ -8,22 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Food extends Model
 {
     use HasFactory;
-    // protected $fillable = ['food_name','desc','price','photo'];
+
+    protected $table = 'food';
     protected $fillable = [
-<<<<<<< Updated upstream
         'category_id',
-=======
->>>>>>> Stashed changes
         'name',
         'desc',
         'price',
         'image',
-<<<<<<< Updated upstream
-=======
-        'category_id',
->>>>>>> Stashed changes
     ];
-    // nv kvas attributes
 
     public function category()
     {

@@ -12,8 +12,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::where('category_id', 1)->get();
-        return view('menu',['foods' => $foods]);
+        $foods = Food::all();
+        return view('menu', compact('foods'));
     }
 
     /**
@@ -35,9 +35,10 @@ class FoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Food $food)
+    public function show($id)
     {
-        //
+        $foods = Food::find($id);
+        return view('food-detail', ['foods' => $foods]);
     }
 
     /**

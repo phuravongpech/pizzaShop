@@ -12,11 +12,8 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-<<<<<<< Updated upstream
         'user_id',
-=======
         'customer_id',
->>>>>>> Stashed changes
         'order_date',
     ];
 
