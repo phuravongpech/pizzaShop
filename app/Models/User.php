@@ -24,12 +24,8 @@ class User extends Authenticatable
         'description',
         'img',
         'phone_num',
-<<<<<<< Updated upstream
-        'is_email_verified'
-=======
         'is_email_verified',
         'is_admin',
->>>>>>> Stashed changes
     ];
 
     /**

@@ -64,6 +64,7 @@ class OrderDetailResource extends Resource
                             ->sortable()
                             ->searchable()
                             ->toggleable(),
+                TextColumn::make('quantity'),
                 TextColumn::make('created_at')
                             ->sortable()
                             ->searchable()

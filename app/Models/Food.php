@@ -10,18 +10,11 @@ class Food extends Model
     use HasFactory;
     // protected $fillable = ['food_name','desc','price','photo'];
     protected $fillable = [
-<<<<<<< Updated upstream
-        'category_id',
-=======
->>>>>>> Stashed changes
         'name',
         'desc',
         'price',
         'image',
-<<<<<<< Updated upstream
-=======
         'category_id',
->>>>>>> Stashed changes
     ];
     // nv kvas attributes
 
