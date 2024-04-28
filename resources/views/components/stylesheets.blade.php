@@ -29,13 +29,6 @@
 
 
     <style>
-
-body{
-            margin-top:20px;
-            color:#252629;
-            }
-
-
             
         body header head {
             background-color:#f2f6fc;

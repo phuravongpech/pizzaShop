@@ -36,9 +36,15 @@ Route::get('/contact', function () {
 
 Route::get('/profile', [UserController::class, 'index'])->name('profile');
 
-Route::get('/address', [UserController::class, 'address'])->name('address');
+Route::post('/profile/{id}', [UserController::class, 'update'])->name('profile.update');
 
-Route::get('/address', [AddressController::class, 'index'])->name('address');
+
+Route::get('/address', [UserController::class, 'address'])->name('address');
+Route::post('/address/store', [UserController::class, 'storeAddress'])->name('address.store');
+Route::get('/address/edit/{id}', [UserController::class, 'editAddress'])->name('address.edit');
+Route::post('/address/update/{id}', [UserController::class, 'updateAddress'])->name('address.update');
+Route::get('/address/delete/{id}', [UserController::class, 'deleteAddress'])->name('address.delete');
+Route::delete('/address/delete/{id}', [UserController::class, 'deleteAddress'])->name('address.delete');
 
 Route::get('/password', function () {
     return view('user.password');

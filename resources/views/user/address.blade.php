@@ -17,7 +17,12 @@
                 flex-direction: column;
                 padding: 15px;
                 background-color: #fff;
-                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            .address-type h6 {
+                font-size: 20px;
+                font-weight: 600;
+                color: #333;
             }
 
             .address-btn a, .form-btn {
@@ -29,6 +34,15 @@
                 border-radius: 30px;
                 border: 1px solid#ccc;  
             }
+
+            #removeAddressConfirmation .modal-dialog {
+                max-width: 500px;
+            }
+            
+            .modal-content{
+                border-radius: 10px
+            }
+
     </style>
 
 <div class="container-xl px-4 mt-4">
@@ -57,14 +71,17 @@
                             </div>
                             <div class="px-2">
                                 <p class="mb-1 ps-2">{{$address->address_detail}}</p>
-                                <p class="mb-1 ps-2">{{$address->address_no}}</p>
-                                <p class="mb-1 ps-2">{{$address->street}}</p>
-                                <p class="mb-1 ps-2">{{$address->city}}</p>
+                                <p class="mb-1 ps-2">Address No. {{$address->address_no}}</p>
+                                <p class="mb-1 ps-2">Street : {{$address->street}}</p>
+                                <p class="mb-1 ps-2">City : {{$address->city}}</p>
+                                <p class="mb-1 ps-2">Extra Instructions : {{$address->extra_instructions}}</p>
                             </div>
                         </div>
                         <div class="address-btn align-items-end justify-content-end w-100 mt-sm-4 px-2">
-                            <a class="btn btn-solid open-modal bg-primary text-dark mx-1" href="" data-bs-toggle="modal" data-bs-target="#edit_address">Edit</a>
-                            <a class="btn btn-solid delete_address_btn bg-primary text-dark mx-1" href="" data-bs-toggle="modal" data-bs-target="#removeAddressConfirmation">Delete</a>
+                            <a class="btn btn-solid open-modal bg-primary text-dark mx-1" href="{{ route('address.edit', $address->id) }}" 
+                                data-bs-toggle="" data-bs-target="" data-address_id="{{ $address->id }}">Edit</a>
+                            <a class="btn btn-solid delete_address_btn bg-primary text-dark mx-1" href=" {{ route('address.delete' , $address->id) }} " data-bs-toggle="" 
+                            data-bs-target="#" data-address_id="{{ $address->id }}">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -80,178 +97,91 @@
 
         
 <!-- Modal for add -->
-<div id="add_address" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="outer-box border-0 p-0">
-                    <div class="row">
-                        <div class="col-md-12" id="add_new_address_form">
-                            <div class="theme-card w-100">
-                                <div class="form-row no-gutters">
-                                    <div class="col-12">
-                                        <label for="type">Address Type</label>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="delivery_box pt-0 pl-0 pb-2">
-                                            <label class="radio m-0 mx-4">Home
-                                                <input type="radio" name="type" id="home" checked value="1">
-                                                <span class="checkround"></span>
-                                            </label>
-                                            <label class="radio m-0 mx-4" >Work
-                                                <input type="radio" name="type" id="work" value="2">
-                                                <span class="checkround"></span>
-                                            </label>
-                                            <label class="radio m-0 mx-4">Others
-                                                <input type="radio" name="type" id="others" value="3">
-                                                <span class="checkround"></span>
-                                            </label>
+<form method="POST" action="{{ route('address.store') }}">
+    @csrf
+    <div id="add_address" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="outer-box border-0 p-0">
+                        <div class="row">
+                            <div class="col-md-12" id="add_new_address_form">
+                                <div class="theme-card w-100">
+                                    <div class="form-row no-gutters">
+                                        <div class="col-12">
+                                            <label for="type">Address Type</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="delivery_box pt-0 pl-0 pb-2">
+                                                <label class="radio m-0 mx-4">Home
+                                                    <input type="radio" name="address_type" id="home" name="home" checked value="Home">
+                                                    <span class="checkround"></span>
+                                                </label>
+                                                <label class="radio m-0 mx-4" >Work
+                                                    <input type="radio" name="address_type" id="work" name="work" value="Work">
+                                                    <span class="checkround"></span>
+                                                </label>
+                                                <label class="radio m-0 mx-4">Others
+                                                    <input type="radio" name="address_type" id="others" name="others" value="Others">
+                                                    <span class="checkround"></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <input type="hidden" name="latitude" id="latitude" value="">
-                                <input type="hidden" name="longitude" id="longitude" value="">
-
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="address">Address</label>
-                                        <div class="input-group address-input-group">
-                                            <input type="text" name="address" class="form-control" id="address" placeholder="Address" aria-label="Recipient's Address" aria-describedby="button-addon2" value="" autocomplete="off" required="required">
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-2">
+                                            <label for="address_detail">Address</label>
+                                            <div class="input-group address-input-group">
+                                                <input type="text" name="address_detail" class="form-control" id="address_detail" name="address_detail" placeholder="Address" aria-label="Recipient's Address" aria-describedby="button-addon2" value="" autocomplete="off" required="required">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="house_number">House / Apartment/ Flat No.</label>
-                                        <input type="text" class="form-control" id="house_number" placeholder="House / Apartment/ Flat No." name="house_number" value="">
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-2">
+                                            <label for="address_no">House / Apartment/ Flat No.</label>
+                                            <input type="text" class="form-control" id="address_no" name="address_no" placeholder="House / Apartment/ Flat No." value="">
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="street">Street</label>
+                                            <input type="text" class="form-control" id="street" name="street" placeholder="Street" value="">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="street">Street</label>
-                                        <input type="text" class="form-control" id="street" placeholder="Street" name="street" value="">
-                                    </div>
-                                </div>
 
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="city_province">City/Province</label>
-                                        <input type="text" class="form-control" id="city_province" name="city_province" placeholder="City/Province" value="">
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-2">
+                                            <label for="city">City/Province</label>
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="City/Province" value="">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="extra_instruction">Extra Instructions</label>
-                                        <input type="text" class="form-control" id="extra_instruction" name="extra_instruction" placeholder="Extra instruction for driver to follow.." value="">
+                                    <div class="form-row">
+                                        <div class="col-md-12 mb-2">
+                                            <label for="extra_instructions">Extra Instructions</label>
+                                            <input type="text" class="form-control" id="extra_instructions" name="extra_instructions" placeholder="Extra instruction for driver to follow.." value="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-md-12 mt-2">
-                    <button type="button" class="btn btn-solid bg-primary text-dark form-btn" id="save_address_btn">Save Address</button>
-                    <button type="button" class="btn btn-solid bg-light text-dark form-btn" data-bs-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal Edit -->
-<div id="edit_address" class="modal fade" tabindex="-1" aria-labelledby="editAddressLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editAddressLabel">Edit Address</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="outer-box border-0 p-0">
-                    <div class="row">
-                        <div class="col-md-12" id="edit_new_address_form">
-                            <div class="theme-card w-100">
-                                <div class="form-row no-gutters">
-                                    <div class="col-12">
-                                        <label for="edit_type">Address Type</label>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="delivery_box pt-0 pl-0 pb-2">
-                                            <label class="radio m-0 mx-4">Home
-                                                <input type="radio" name="edit_type" id="edit_home" checked value="1">
-                                                <span class="checkround"></span>
-                                            </label>
-                                            <label class="radio m-0 mx-4">Work
-                                                <input type="radio" name="edit_type" id="edit_work" value="2">
-                                                <span class="checkround"></span>
-                                            </label>
-                                            <label class="radio m-0 mx-4">Others
-                                                <input type="radio" name="edit_type" id="edit_others" value="3">
-                                                <span class="checkround"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="edit_latitude" id="edit_latitude" value="">
-                                <input type="hidden" name="edit_longitude" id="edit_longitude" value="">
-
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="edit_address">Address</label>
-                                        <div class="input-group address-input-group">
-                                            <input type="text" name="edit_address" class="form-control" id="edit_address_input" placeholder="Address" aria-label="Recipient's Address" aria-describedby="button-addon2" value="" autocomplete="off" required="required">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="edit_house_number">House / Apartment/ Flat No.</label>
-                                        <input type="text" class="form-control" id="edit_house_number" placeholder="House / Apartment/ Flat No." name="edit_house_number" value="">
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="edit_street">Street</label>
-                                        <input type="text" class="form-control" id="edit_street" placeholder="Street" name="edit_street" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="edit_city_province">City/Province</label>
-                                        <input type="text" class="form-control" id="edit_city_province" name="edit_city_province" placeholder="City/Province" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-2">
-                                        <label for="edit_extra_instruction">Extra Instructions</label>
-                                        <input type="text" class="form-control" id="edit_extra_instruction" name="edit_extra_instruction" placeholder="Extra instruction for driver to follow.." value="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="modal-footer">
+                    <div class="col-md-12 mt-2">
+                        <button type="button" class="btn btn-solid bg-light ext-dark form-btn" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-solid bg-primary text-dark form-btn" id="save_address_btn">Save Address</button>
                     </div>
                 </div>
-            </div>    
-            <div class="modal-footer">
-                <div class="col-md-12 mt-2">
-                    <button type="button" class="btn btn-solid bg-primary text-dark form-btn" id="edit_save_address_btn">Save Changes</button>
-                    <button type="button" class="btn btn-solid bg-light text-dark form-btn" data-bs-dismiss="modal">Cancel</button>
-                </div>
             </div>
         </div>
     </div>
-</div>
-
-
-
+</form>
 
 
 <!-- Modal Delete Address -->
@@ -265,13 +195,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h6 class="m-0">
+                <h6 class="my-3">
                     Do you really want to delete this address?
                 </h6>
             </div>
             <div class="modal-footer flex-nowrap justify-content-center align-items-center">
                 <button type="button" class="btn btn-solid bg-light ext-dark form-btn" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-solid bg-danger text-dark form-btn" id="remove_address_confirm_btn" data-id="">Delete</button>
+                <form id="deleteAddressForm" method="POST" action="{{ route('address.delete', ['id' => $address->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-solid bg-danger text-dark form-btn">Delete</button>
+                </form>
             </div>
         </div>
     </div>
