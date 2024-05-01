@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\MatchOldPw;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Address;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth; 
 
 class UserController extends Controller
 {
@@ -128,6 +131,33 @@ class UserController extends Controller
         return redirect()->route('address')
             ->with('success', 'Address deleted successfully');
     }
+
+    public function password(){
+        $user = auth()->user();
+
+        return view('user.password', [ 'user' => $user ]);
+    }
+
+        // Function to handle the change password request
+        // Function to handle the change password request
+        public function changePassword(Request $request, $id)
+        {
+            // Validate the request data
+            $request->validate([
+                'old_password' => ['required', 'string', new MatchOldPw],
+                'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+            // Get the authenticated user
+            $user = User::findOrFail($id);
+            // If the passwords match, update the user's password
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            Auth::logout();
+            // Redirect the user to the home page with a success message
+            return redirect()->route('login')->with('success', 'Password changed successfully!');
+        }
+
+        // Redirect the user to the home page with a success message
     
 
     /**

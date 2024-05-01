@@ -8,6 +8,8 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,17 +29,14 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-
-Route::get('/menu', [FoodController::class, 'index']);
-
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::get('/menu', [FoodController::class, 'index']);
+
 Route::get('/profile', [UserController::class, 'index'])->name('profile');
-
 Route::post('/profile/{id}', [UserController::class, 'update'])->name('profile.update');
-
 
 Route::get('/address', [UserController::class, 'address'])->name('address');
 Route::post('/address/store', [UserController::class, 'storeAddress'])->name('address.store');
@@ -46,22 +45,21 @@ Route::post('/address/update/{id}', [UserController::class, 'updateAddress'])->n
 Route::get('/address/delete/{id}', [UserController::class, 'deleteAddress'])->name('address.delete');
 Route::delete('/address/delete/{id}', [UserController::class, 'deleteAddress'])->name('address.delete');
 
-Route::get('/password', function () {
-    return view('user.password');
-})->name('password');
+
+Route::get('/password', [UserController::class, 'password'])->name('password');
+Route::post('/password/{id}', [UserController::class, 'changePassword'])->name('password.change');
+
 
 Route::get('/order', function () {
     return view('user.order');
 })->name('order');
 
-// Route::get('/food-detail', function () {
-//     return view('food-detail');
-// })->name('food-detail');
 
 Route::get('/food-detail/{id}', [FoodController::class, 'show'])->name('food-detail');
-
-
+// Route::get('/viewcart', [CartController::class, 'index'])->name('viewcart');
 Route::get('/viewcart', [AddressController::class, 'cartAddress'])->name('viewcart');
+
+
 
 Auth::routes();
 
@@ -80,7 +78,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::post('/session', [StripeController::class, 'createSession'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');
 Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 Route::get('/stripe/webhook',[StripeController::class,'handleWebhook']);

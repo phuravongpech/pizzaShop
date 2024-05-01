@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use App\Models\Crust;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,10 +17,12 @@ class FoodsController extends Controller
     public function cart(){
         return view('viewcart');
     }
-    public function addToCart($id)
+    public function addToCart($id, Request $request)
     {
-        $validator = Validator::make(['id' => $id], [ // Validate request data
-            'id' => 'required|integer|exists:food,id',
+        $validator = Validator::make($request->all(), [
+            'quantity' => 'required|integer|min:1',
+            'size' => 'required|exists:sizes,id',
+            'crust' => 'required|exists:crusts,id',
         ]);
 
         if ($validator->fails()) {
@@ -26,17 +30,31 @@ class FoodsController extends Controller
         }
 
         $food = Food::findOrFail($id);
+        $size = Size::findOrFail($request->size);
+        $crust = Crust::findOrFail($request->crust);
+
         $cart = session()->get('cart', []);
 
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity']++;
+        $price = $food->price;
+
+        if($crust && $size){
+            $price *= $size->price_modifier;
+            $price += $crust->priceAdd;
+        }
+
+        $key = $id . '-' . $request->crust . '-' . $request->size;
+
+        if (isset($cart[$key])) {
+            $cart[$key]['quantity']++;
         } else {
-            $cart[$id] = [
+            $cart[$key] = [
                 "food_name" => $food->name,
                 "food_image" => $food->image,
                 "food_desc" => $food->desc,
-                "price" => $food->price,
-                "quantity" => 1,
+                "price" => $price,
+                "crust" => $crust->name,
+                "size" => $size->name,
+                "quantity" => $request->quantity,
             ];
         }
 

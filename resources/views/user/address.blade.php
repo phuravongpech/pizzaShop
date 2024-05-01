@@ -185,31 +185,7 @@
 
 
 <!-- Modal Delete Address -->
-<div class="modal fade" id="removeAddressConfirmation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="remove_addressLabel">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-bottom">
-                <h5 class="modal-title" id="remove_addressLabel">Delete Address</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h6 class="my-3">
-                    Do you really want to delete this address?
-                </h6>
-            </div>
-            <div class="modal-footer flex-nowrap justify-content-center align-items-center">
-                <button type="button" class="btn btn-solid bg-light ext-dark form-btn" data-bs-dismiss="modal">Cancel</button>
-                <form id="deleteAddressForm" method="POST" action="{{ route('address.delete', ['id' => $address->id]) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-solid bg-danger text-dark form-btn">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {

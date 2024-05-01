@@ -18,6 +18,7 @@ class AuthController extends Controller{
     public function registration(){
         return view('auth.register');
     }
+    
     public function postLogin(Request $request){
         $request->validate([
             'email'=>'required',
@@ -29,6 +30,7 @@ class AuthController extends Controller{
         }
         return redirect("login")->withSuccess('Invalid credentials');
     }
+
     public function postRegister(Request $request){
         $request ->validate([
             'name'=>'required',
@@ -45,10 +47,11 @@ class AuthController extends Controller{
         ]);
         Mail::send('emails.emailVerificationEmail',['token'=>$token],function($message) use($request){
             $message->to($request->email);
-              $message->subject('Email Verification Mail');
+            $message->subject('Email Verification Mail');
         });
         return redirect("home")->withSuccess('Great! You have Successfully loggedin');
     }
+    
     public function dashboard(){
         if(Auth::check()){
             return view('home');
@@ -67,6 +70,7 @@ class AuthController extends Controller{
         Auth::logout();
         return redirect('login');
     }
+
     public function verifyAccount($token){
         $verifyUser = UserVerify::where('token',$token)->first();
         $message = 'Sorry your email cannot be identified.';

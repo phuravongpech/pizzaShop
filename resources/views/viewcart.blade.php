@@ -27,6 +27,14 @@
                 <a href="" class="text-danger"> CONTINUE SHOPPING</a>
             </div>
         </div>
+        {{-- @foreach ($crust as $cr)
+            
+        <h1>{{$cr->name}}</h1>
+        @endforeach
+
+        @foreach ($size as $s)
+            <h1> {{$s->name}} </h1>
+        @endforeach --}}
         <div class="row ">
             <div class="col-lg-9  px-2">
                 {{-- cart food section --}}
@@ -76,10 +84,14 @@
                     @endphp
                     @if(session('cart'))
                     @foreach(session('cart') as $id => $details)
-                    @php
-                    $subTotal += $details['price'] * $details['quantity'];
-                    $total += $details['price'] * $details['quantity'];
-                    @endphp
+                        @php
+                        $subTotal += $details['price'] * $details['quantity'];
+                        $total += $details['price'] * $details['quantity'];
+                        @endphp
+
+                    {{-- <h1> {{$details['crust']}} </h1>
+                    <h1> {{$details['size']}} </h1> --}}
+
                     <div class="product-cart">
                         <div class="row mb-3 border-1 border-bottom pe-3" style="height: auto">
                             <div class="col-lg-3 col-md-2">
@@ -99,8 +111,16 @@
                                                 {{-- <h6>{{ $details['food_desc'] }}</h6> --}}
                                             </div>
                                             <div class="col-lg-12 mt-3">
-                                                <h6 class="d-flex">Size: <p>Medium</p></h6>
-                                                <h6 class="d-flex">Crust Type: <p>Thick</p></h6>
+                                                <h6 class="d-flex">Size: 
+                                                    <p>
+                                                        {{$details['size']}}    
+                                                    </p>
+                                                </h6>
+                                                <h6 class="d-flex">Crust Type: 
+                                                    <p>
+                                                        {{$details['crust']}}
+                                                    </p>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class StripeController extends Controller
 {
     
-    public function session(Request $request){
+    public function createSession(Request $request){
         $user = auth()->user();
         $foodItems = [];
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
@@ -17,14 +17,19 @@ class StripeController extends Controller
             $food_name = $details['food_name'];
             $total = $details['price'];
             $quantity = $details['quantity'];
-    
-            $unit_amount = $total * 100;
+            $crust = $details['crust'];
+            $size = $details['size'];
+
+            $unit_amount = intval($total * 100);
+
+            $description = "Crust: $crust, Size: $size"; // Description including crust and size
     
             $foodItems[] = [
                 'price_data'=>[
                     'currency'=>'USD',
                     'product_data' => [
                         'name' => $food_name,
+                        'description' => $description,
                     ],
                     'unit_amount' => $unit_amount,
                 ],
@@ -36,7 +41,9 @@ class StripeController extends Controller
             'mode'       => 'payment',
             'allow_promotion_codes' => true,
             'metadata'   =>[
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'size' => $request->size,
+                'crust' => $request->crust,
             ],
             'customer_email'=>$user->email,
             'success_url'=>route('success'),
