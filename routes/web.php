@@ -29,6 +29,12 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+// Route::get('/menu', function () {
+//     return view('menu');
+// })->name('menu');
+
+// Route::get('/menu', [FoodController::class, 'index']);
+
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -79,6 +85,30 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::post('/session', [StripeController::class, 'createSession'])->name('session');
+Route::get('/cart', function () {
+    return view('cart.cart');
+})->name('cart');
+
+Route::get('/viewcart', function () {
+    return view('viewcart');
+})->name('view-cart');  
+
+Auth::routes();
+
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
+Route::get('registration', [AuthController::class, 'registration'])->name('register');
+Route::post('post-registration', [AuthController::class, 'postRegister'])->name('register.post'); 
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+  
+/* New Added Routes */
+Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware(['auth', 'is_verify_email']); 
+Route::get('account/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify'); 
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/session', [StripeController::class, 'session'])->name('session');
 Route::get('/success', [StripeController::class, 'success'])->name('success');
 Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 Route::get('/stripe/webhook',[StripeController::class,'handleWebhook']);
