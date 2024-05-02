@@ -33,7 +33,7 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/menu', [FoodController::class, 'index']);
+Route::get('/menu', [FoodsController::class, 'index']);
 
 Route::get('/profile', [UserController::class, 'index'])->name('profile');
 Route::post('/profile/{id}', [UserController::class, 'update'])->name('profile.update');

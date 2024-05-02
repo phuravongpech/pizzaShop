@@ -22,6 +22,10 @@ class AddressController extends Controller
     public function cartAddress()
     {
         $user = auth()->user();
+
+        if(!$user){
+            return redirect()->route('login');
+        }
         
         $addresses = Address::where('customer_id', $user->id)->get();
 

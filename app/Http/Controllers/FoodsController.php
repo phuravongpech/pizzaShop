@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use App\Models\Category;
 use App\Models\Crust;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class FoodsController extends Controller
 {
-    public function index(){
-        $foods = Food::all();
-        return view('menu',compact('foods'));
+    public function index()
+    {
+        $pizzas = Food::where('category_id', 1)->get();
+        $drinks = Food::where('category_id', 2)->get();
+        $appetizers = Food::where('category_id', 3)->get();
+        
+        return view('menu', compact('pizzas', 'drinks', 'appetizers'));
     }
     public function cart(){
         return view('viewcart');

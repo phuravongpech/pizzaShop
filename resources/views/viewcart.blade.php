@@ -2,22 +2,6 @@
 
 @section('content')
 
-<style>
-    .delivery_box {
-        border: 1px solid #e5e5e5;
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .box_shadow {
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-        border: 1px solid #e5e5e5;
-        border-radius: 20px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-</style>
 
 <section>
     <div class="container " style="height: auto; margin-top: 150px; margin-bottom: 100px">
@@ -127,7 +111,7 @@
                                     <div class="col-lg-2 p-0" style="width: 100px">${{ $details['price'] }}</div>
                                     <div class="col-lg-3 d-flex p-0">
                                         <div class="ms-4 border border-1" style=" width: 80px; height: 40px; border-radius: 5px;">
-                                            <input type="text" name="quantity" id="quantity" class="form-control quantity" value="{{ $details['quantity'] }}" min="1">
+                                            <input type="number" name="quantity" id="quantity" class="form-control quantity" value="{{ $details['quantity'] }}" aria-valuemin="1">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 px-4" style="">${{ $details['price'] * $details['quantity'] }}</div>
@@ -227,7 +211,6 @@
                                     </button>
                                 </form>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -239,3 +222,30 @@
 </section>
 
 @endsection
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.update_cart').change(function(){
+            
+            e.preventDefault();
+
+            var $ele = $(this);
+
+            $.ajax({
+                url: ' {{ route('update_cart') }} ',
+                method: 'patch',
+                data: {
+                    token: '{{ csrf_token() }}',
+                    id: find('.id').val(),
+                    quantity: find('.quantity').val()
+                },
+                success: function(response){
+                    window.location.reload();
+                }
+            });
+        });
+    
+    });
+
+</script>

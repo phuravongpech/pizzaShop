@@ -84,7 +84,7 @@
                                 <h5 class="product-title  my-2 mb-4" >Quantity:</h5>
                                 <div class="qty-box mb-3 border border-1" style="border-radius: 5px">
                                     <div class="input-group">
-                                        <input type="text" name="quantity" id="quantity" class="form-control quantity"  min="1">
+                                        <input type="number" name="quantity" id="quantity" class="form-control quantity"  min="1">
                                     </div>
                                 </div>
                             </div>

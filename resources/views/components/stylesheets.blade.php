@@ -64,5 +64,19 @@
     -webkit-line-clamp: 3; /* Show 3 lines before ellipsis */
 }
 
+.delivery_box {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .box_shadow {
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e5e5;
+        border-radius: 20px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
 
     </style>

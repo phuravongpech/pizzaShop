@@ -12,6 +12,10 @@ class CartController extends Controller
 {
     public function index(){
         $user = auth()->user();
+
+        if(!$user){
+            return redirect()->route('login');
+        }
         
         $addresses = Address::where('customer_id', $user->id)->get();
 
