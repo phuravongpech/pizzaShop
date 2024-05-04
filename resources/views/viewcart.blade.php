@@ -72,10 +72,7 @@
                         $subTotal += $details['price'] * $details['quantity'];
                         $total += $details['price'] * $details['quantity'];
                         @endphp
-
-                    {{-- <h1> {{$details['crust']}} </h1>
-                    <h1> {{$details['size']}} </h1> --}}
-
+                        
                     <div class="product-cart">
                         <div class="row mb-3 border-1 border-bottom pe-3" style="height: auto">
                             <div class="col-lg-3 col-md-2">
@@ -94,6 +91,7 @@
                                             <div class="col-lg-12">
                                                 {{-- <h6>{{ $details['food_desc'] }}</h6> --}}
                                             </div>
+                                            @if ($details['crust'] != 'N/A' && $details['size'] != 'N/A')
                                             <div class="col-lg-12 mt-3">
                                                 <h6 class="d-flex">Size: 
                                                     <p>
@@ -106,6 +104,7 @@
                                                     </p>
                                                 </h6>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-lg-2 p-0" style="width: 100px">${{ $details['price'] }}</div>
@@ -116,9 +115,16 @@
                                     </div>
                                     <div class="col-lg-2 px-4" style="">${{ $details['price'] * $details['quantity'] }}</div>
                                     <div class="col" style="width: 50px">
-                                        <a class="action-icon d-block remove_product_via_cart" style="cursor: pointer;" data-product="34830" data-vendor_id="42">
-                                            <i class="fas fa-trash" aria-hidden="true"></i>
-                                        </a>
+                                        <form action="{{ route('remove_from_cart') }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="key" value="{{ $id }}">
+                                            <a  class="action-icon d-block remove_product_via_cart" style="cursor: pointer;" data-product="34830" data-vendor_id="42">
+                                            <button type="submit">
+                                                <i class="fas fa-trash" aria-hidden="true" ></i>
+                                            </button> 
+                                            </a>    
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -222,30 +228,3 @@
 </section>
 
 @endsection
-
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.update_cart').change(function(){
-            
-            e.preventDefault();
-
-            var $ele = $(this);
-
-            $.ajax({
-                url: ' {{ route('update_cart') }} ',
-                method: 'patch',
-                data: {
-                    token: '{{ csrf_token() }}',
-                    id: find('.id').val(),
-                    quantity: find('.quantity').val()
-                },
-                success: function(response){
-                    window.location.reload();
-                }
-            });
-        });
-    
-    });
-
-</script>

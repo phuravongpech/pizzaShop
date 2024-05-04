@@ -22,11 +22,16 @@ class CartController extends Controller
         $crust = Crust::all();
         $size = Size::all();
 
+        $cart = session()->get('cart', []);
+
+
+
 
         return view('viewcart', [
             'addresses'=> $addresses,
             'crust'=>$crust,
             'size'=> $size,
+            'cart'=>$cart,
         ]);
         
     }

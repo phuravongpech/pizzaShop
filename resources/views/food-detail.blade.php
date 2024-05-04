@@ -33,6 +33,7 @@
                 <form action="{{ route('add_to_cart', $foods->id) }}" method="POST">
                     @csrf
                     <div class="container pb-4">
+                        @if ($foods->category_id == 1)
                         <div class="row">
                             <div class="col-2">
                                 <h5>
@@ -78,6 +79,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class=" mt-5">
                         <div id="product_variant_quantity_wrapper" style="display: inline-block">
                             <div class=" pb-0">

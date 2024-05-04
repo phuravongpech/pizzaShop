@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Filament\Forms\Components\Card;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Food;
+use App\Models\Size;
+use App\Models\Crust;
+use Illuminate\Support\Facades\Validator;
 
 class StripeController extends Controller
 {
@@ -20,10 +26,12 @@ class StripeController extends Controller
             $crust = $details['crust'];
             $size = $details['size'];
 
+            
+
             $unit_amount = intval($total * 100);
 
             $description = "Crust: $crust, Size: $size"; // Description including crust and size
-    
+
             $foodItems[] = [
                 'price_data'=>[
                     'currency'=>'USD',
@@ -54,16 +62,66 @@ class StripeController extends Controller
     
     
     
-    public function success()
+    public function success(Request $request)
     {
-        return "Thanks for you order You have just completed your payment. The seeler will reach out to you as soon as possible";
+        // Handle successful payment
+        // You can access the session ID from the request
+        // $sessionId = $request->query('session_id');
+
+        // Update your database
+        $cart = session()->get('cart');
+
+        $order = new Order();
+        $order->customer_id = auth()->id();
+        $order->order_date = now();
+        $order->save();
+
+        foreach($cart as $id => $item){
+            //In your loop, $id is a composite key generated in the addToCart method as a 
+            //combination of food_id, size_id, and crust_id. You need to parse this key to 
+            //retrieve the food_id.
+            // Explode the $id to get the food_id
+            $ids = explode('-', $id); // function splits the string $id into an array using '-' as the separator.
+            $food_id = $ids[0]; //extracts the food_id from the exploded array.
+
+            $size_id = isset($ids[1]) ? $ids[1] : null;
+            $crust_id = isset($ids[2]) ? $ids[2] : null;
+
+            if($size_id && $crust_id){
+                
+                $orderDetail = new OrderDetail();
+                $orderDetail->order_id = $order->id;
+                $orderDetail->food_id = $food_id;
+                $orderDetail->size_id = $size_id;
+                $orderDetail->crust_id = $crust_id;
+                $orderDetail->quantity = $item['quantity'];
+                $orderDetail->save();
+            }else{
+
+                $orderDetail = new OrderDetail();
+                $orderDetail->order_id = $order->id;
+                $orderDetail->food_id = $food_id;
+                $orderDetail->size_id = null;
+                $orderDetail->crust_id = null;
+                $orderDetail->quantity = $item['quantity'];
+                $orderDetail->save();
+            }
+        }
+
+        // Clear the cart
+        session()->forget('cart');
+
+        // Redirect the user to a thank you page
+        return redirect()->route('viewcart')->with('success', 'Payment successful! Thank you for your order.');
     }
- 
+
+// 
     public function cancel()
     {
         return view('viewcart');
     }
-    public function handleWebhook(Request $request){
+    public function handleWebhook(Request $request)
+    {
         $endpointSecret = config('stripe.wh_secrect');
 
         $sigHeader = $request ->header('Stripe-Signature');
