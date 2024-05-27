@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Food extends Model
 {
     use HasFactory;
-
-    protected $table = 'food';
+    // protected $fillable = ['food_name','desc','price','photo'];
     protected $fillable = [
         'name',
         'desc',
@@ -17,6 +16,7 @@ class Food extends Model
         'image',
         'category_id',
     ];
+    // nv kvas attributes
 
     public function category()
     {

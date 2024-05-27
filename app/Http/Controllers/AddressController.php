@@ -12,27 +12,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
         
-        $addresses = Address::where('customer_id', $user->id)->get();
-
-        return view('user.address', ['addresses' => $addresses]);
     }
-
-    public function cartAddress()
-    {
-        $user = auth()->user();
-
-        if(!$user){
-            return redirect()->route('login');
-        }
-        
-        $addresses = Address::where('customer_id', $user->id)->get();
-
-        return view('viewcart', ['addresses' => $addresses]);
-    }
-
-    
 
     /**
      * Show the form for creating a new resource.

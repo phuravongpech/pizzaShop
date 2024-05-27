@@ -4,54 +4,39 @@ namespace App\Http\Controllers;
 
 use Filament\Forms\Components\Card;
 use Illuminate\Http\Request;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\Food;
-use App\Models\Size;
-use App\Models\Crust;
-use Illuminate\Support\Facades\Validator;
 
 class StripeController extends Controller
 {
-    
-    public function createSession(Request $request){
+    public function session(Request $request){
         $user = auth()->user();
         $foodItems = [];
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
-    
+
         foreach(session('cart') as $id => $details){
             $food_name = $details['food_name'];
             $total = $details['price'];
             $quantity = $details['quantity'];
-            $crust = $details['crust'];
-            $size = $details['size'];
 
-            
-
-            $unit_amount = intval($total * 100);
-
-            $description = "Crust: $crust, Size: $size"; // Description including crust and size
+            $two0 = "00";
+            $unit_amount = "$total$two0";
 
             $foodItems[] = [
                 'price_data'=>[
-                    'currency'=>'USD',
-                    'product_data' => [
-                        'name' => $food_name,
-                        'description' => $description,
+                    'food_data' => [
+                        'food_name' => $food_name,
                     ],
+                    'currency'=>'USD',
                     'unit_amount' => $unit_amount,
                 ],
                 'quantity' => $quantity
             ];
         }
         $checkoutSession = \Stripe\Checkout\Session::create([
-            'line_items' => $foodItems,
+            'line_items' => [$foodItems],
             'mode'       => 'payment',
             'allow_promotion_codes' => true,
             'metadata'   =>[
-                'user_id' => $user->id,
-                'size' => $request->size,
-                'crust' => $request->crust,
+                'user_id' => $user->id
             ],
             'customer_email'=>$user->email,
             'success_url'=>route('success'),
@@ -59,69 +44,16 @@ class StripeController extends Controller
         ]);
         return redirect()->away($checkoutSession->url);
     }
-    
-    
-    
-    public function success(Request $request)
+    public function success()
     {
-        // Handle successful payment
-        // You can access the session ID from the request
-        // $sessionId = $request->query('session_id');
-
-        // Update your database
-        $cart = session()->get('cart');
-
-        $order = new Order();
-        $order->customer_id = auth()->id();
-        $order->order_date = now();
-        $order->save();
-
-        foreach($cart as $id => $item){
-            //In your loop, $id is a composite key generated in the addToCart method as a 
-            //combination of food_id, size_id, and crust_id. You need to parse this key to 
-            //retrieve the food_id.
-            // Explode the $id to get the food_id
-            $ids = explode('-', $id); // function splits the string $id into an array using '-' as the separator.
-            $food_id = $ids[0]; //extracts the food_id from the exploded array.
-
-            $size_id = isset($ids[1]) ? $ids[1] : null;
-            $crust_id = isset($ids[2]) ? $ids[2] : null;
-
-            if($size_id && $crust_id){
-                
-                $orderDetail = new OrderDetail();
-                $orderDetail->order_id = $order->id;
-                $orderDetail->food_id = $food_id;
-                $orderDetail->size_id = $size_id;
-                $orderDetail->crust_id = $crust_id;
-                $orderDetail->quantity = $item['quantity'];
-                $orderDetail->save();
-            }else{
-
-                $orderDetail = new OrderDetail();
-                $orderDetail->order_id = $order->id;
-                $orderDetail->food_id = $food_id;
-                $orderDetail->size_id = null;
-                $orderDetail->crust_id = null;
-                $orderDetail->quantity = $item['quantity'];
-                $orderDetail->save();
-            }
-        }
-
-        // Clear the cart
-        session()->forget('cart');
-
-        // Redirect the user to a thank you page
-        return redirect()->route('viewcart')->with('success', 'Payment successful! Thank you for your order.');
+        return "Thanks for you order You have just completed your payment. The seeler will reach out to you as soon as possible";
     }
-
-// 
+ 
     public function cancel()
     {
-        return view('viewcart');
+        return view('cancel');
     }
-    public function handleWebhook(Request $request)
-    {
+    public function handleWebhook(Request $request){
         $endpointSecret = config('stripe.wh_secrect');
 
         $sigHeader = $request ->header('Stripe-Signature');
