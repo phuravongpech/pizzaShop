@@ -73,7 +73,9 @@
                         $total += $details['price'] * $details['quantity'];
                         @endphp
                         
-                    <div class="product-cart">
+                    <div class="product-cart" 
+                    data-id=" {{$id}} 
+                    ">
                         <div class="row mb-3 border-1 border-bottom pe-3" style="height: auto">
                             <div class="col-lg-3 col-md-2">
                                 <img class="img-fluid px-2" src="{{ $details['food_image'] }}" alt="">
@@ -107,13 +109,25 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 p-0" style="width: 100px">${{ $details['price'] }}</div>
-                                    <div class="col-lg-3 d-flex p-0">
-                                        <div class="ms-4 border border-1" style=" width: 80px; height: 40px; border-radius: 5px;">
-                                            <input type="number" name="quantity" id="quantity" class="form-control quantity" value="{{ $details['quantity'] }}" aria-valuemin="1">
-                                        </div>
+                                    <div class="col-lg-2 p-0 price" style="width: 100px">${{ $details['price'] }}</div>
+                                    <div class="col-lg-3 d-flex p-0 " style="height: 29px; width: 150px; margin-right: 50px">
+                                        {{-- <div class="ms-4 border border-1" style=" width: 80px; height: 40px; border-radius: 5px;">
+                                            <input type="number" name="quantity" id="quantity" class="form-control product-qty" value="{{ $details['quantity'] }}" aria-valuemin="1">
+                                        </div> --}}
+                                        <td class="cart-product-quantity"  >
+                                            <div class="input-group quantity">
+                                                <div class="input-group-prepend decrement-btn" style="cursor: pointer">
+                                                    <span class="input-group-text">-</span>
+                                                </div>
+                                                <input type="text" class="qty-input form-control" maxlength="2" value=" {{ $details['quantity'] }} ">
+                                                <div class="input-group-append increment-btn" style="cursor: pointer">
+                                                    <span class="input-group-text">+</span>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </div>
-                                    <div class="col-lg-2 px-4" style="">${{ $details['price'] * $details['quantity'] }}</div>
+                                    <div class="col-lg-2 px-4 item-total" style="">${{ $details['price'] * $details['quantity'] }}</div>
+
                                     <div class="col" style="width: 50px">
                                         <form action="{{ route('remove_from_cart') }}" method="POST">
                                             @csrf
@@ -194,7 +208,7 @@
                                         </p>
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
-                                        <h5>${{ $subTotal }}</h5>
+                                        <h5 id="subTotal">${{ $subTotal }}</h5>
                                     </div>
                                 </div>
                                 <div class="row  pt-3 border-top border-1" style="border-color: #e5e5e5">
@@ -204,7 +218,7 @@
                                         </p>
                                     </div>
                                     <div class="col-6 d-flex justify-content-end">
-                                        <h5>${{ $total }}</h5>
+                                        <h5 id="total">${{ $total }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -228,3 +242,81 @@
 </section>
 
 @endsection
+
+<script>
+// $(document).ready(function(){
+    // $('.product-qty').on('change', function() {
+    //     var key = $(this).closest('.product-cart').data('id').trim();
+    //     var quantity = $(this).val();
+    //     var data = {
+    //         '_token': $('meta[name="csrf-token"]').attr('content'),
+    //         'quantity': quantity,
+    //         'key': key
+    //     };
+
+    //     $.ajax({
+    //         url: `{{ route('update_cart') }}`,
+    //         method: 'patch',
+    //         data: data,
+    //         success: function(response){
+    //             if(response.status) {
+    //                 alertify.set('notifier','position', 'top-right');
+    //                 alertify.success('Product updated successfully');
+
+    //                 // Update totals
+    //                 $('#subTotal').text('$' + response.subTotal.toFixed(2));
+    //                 $('#total').text('$' + response.total.toFixed(2));
+
+    //                 // Update item total
+    //                 var price = parseFloat($(`.product-cart[data-id="${key}"] .price`).text().replace('$', ''));
+    //                 var newTotal = (price * quantity).toFixed(2);
+    //                 $(`.product-cart[data-id="${key}"] .item-total`).text('$' + newTotal);
+    //             }
+    //         }
+    //     });
+    // });
+
+    $(document).ready(function () {
+    console.log("Document is ready");
+
+    // Handle increment button click
+    $('.increment-btn').click(function (e) {
+        e.preventDefault();
+        console.log("Increment button clicked");
+        
+        var $qtyInput = $(this).parents('.quantity').find('.qty-input');
+        console.log("Found input field:", $qtyInput);
+        
+        var value = parseInt($qtyInput.val(), 10);
+        console.log("Current value:", value);
+        
+        value = isNaN(value) ? 0 : value;
+        if (value < 10) {
+            value++;
+            $qtyInput.val(value);
+            console.log("Updated value:", value);
+        }
+    });
+
+    // Handle decrement button click
+    $('.decrement-btn').click(function (e) {
+        e.preventDefault();
+        console.log("Decrement button clicked");
+        
+        var $qtyInput = $(this).parents('.quantity').find('.qty-input');
+        console.log("Found input field:", $qtyInput);
+        
+        var value = parseInt($qtyInput.val(), 10);
+        console.log("Current value:", value);
+        
+        value = isNaN(value) ? 0 : value;
+        if (value > 1) {
+            value--;
+            $qtyInput.val(value);
+            console.log("Updated value:", value);
+        }
+    });
+});
+
+
+</script>

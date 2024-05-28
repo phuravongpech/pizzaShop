@@ -54,9 +54,6 @@ class FoodsController extends Controller
             $size = null;
             $crust = null;
         }
-
-        
-
         // Unique key for each item in the cart
         $key = $id . '-' . $request->input('crust', null) . '-' . $request->input('size', null);
 
@@ -81,40 +78,34 @@ class FoodsController extends Controller
         return redirect()->back()->with('success', 'Food added to cart!!');
     }
 
+public function update(Request $request)
+{
+    if ($request->key && $request->quantity) {
+        $cart = session()->get('cart');
 
-    // public function checkout(){
-    //     $cart = session()->get('cart');
+        $cart[$request->key]["quantity"] = $request->quantity;
 
-    //     $order = new Order();
-    //     $order->customer_id = auth()->id();
-    //     $order->order_date = now();
-    //     $order->save();
+        session()->put('cart', $cart);
 
-    //     foreach($cart as $item){
-    //         $orderDetail = new OrderDetail();
-    //         $orderDetail->order_id = $order->id;
-    //         $orderDetail->food_id = $item['id'];
-    //         $orderDetail->size_id = $item['size_id'];
-    //         $orderDetail->crust_id = $item['crust_id'];
-    //         $orderDetail->quantity = $item['quantity'];
-    //         $orderDetail->save();
-    //     }
-
-    //     session()->forget('cart');
-
-    //     return redirect()->route('success')->with('success','Order placed successfully!!');
-
-    // }
-
-
-    public function update(Request $request){
-        if($request->id && $request->quantity){
-            $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
-            session()->put('cart',$cart);
-            session()->flash('success','Cart updated!!');
+        $subTotal = 0;
+        $total = 0;
+        foreach ($cart as $details) {
+            $subTotal += $details['price'] * $details['quantity'];
+            $total += $details['price'] * $details['quantity'];
         }
+
+        return response()->json([
+            'status' => 'Cart updated!',
+            'subTotal' => $subTotal,
+            'total' => $total
+        ]);
     }
+
+    return response()->json(['status' => 'Failed to update cart'], 400);
+}
+
+
+
     public function remove(Request $request)
     {
         if($request->key){

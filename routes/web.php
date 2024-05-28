@@ -94,5 +94,5 @@ Route::get('/menu', [FoodsController::class, 'index']);
 Route::get('cart', [FoodsController::class, 'cart'])->name('cart');
 // Route::get('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
 Route::post('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
-Route::patch('update-cart', [FoodsController::class, 'update'])->name('update_cart');
+Route::patch('/update-cart', [FoodsController::class, 'update'])->name('update_cart');
 Route::delete('remove-from-cart', [FoodsController::class, 'remove'])->name('remove_from_cart');
