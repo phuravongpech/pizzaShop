@@ -1,4 +1,4 @@
-@extends('cart.layout')
+{{-- @extends('cart.layout')
     
 @section('content')
 <table id="cart" class="table table-hover table-condensed">
@@ -71,7 +71,7 @@
                 quantity: ele.parents("tr").find(".quantity").val()
             },
             success: function (response) {
-                window.location.reload();
+               window.location.reload();
             }
         });
     });
@@ -97,4 +97,4 @@
     });
     
 </script>
-@endsection
+@endsection --}}

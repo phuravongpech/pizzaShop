@@ -3,40 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\Crust;
-use App\Models\Size;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-
 
 class FoodsController extends Controller
 {
-    public function index()
-    {
-        $pizzas = Food::where('category_id', 1)->get();
-        $appetizers = Food::where('category_id', 2)->get();
-        $drinks = Food::where('category_id', 3)->get();
-        
-        return view('menu', compact('pizzas', 'drinks', 'appetizers'));
+    public function index(){
+        $foods = Food::all();
+        return view('menu',compact('foods'));
     }
     public function cart(){
-        return view('viewcart');
+        return view('cart.cart');
     }
-    public function addToCart($id, Request $request)
-    {
-        // Validation rules
-        $validator = Validator::make($request->all(), [
-            'quantity' => 'required|integer|min:1',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // Fetch the food item by ID
+    public function addToCart($id){
         $food = Food::findOrFail($id);
 
         // Retrieve the cart from the session
@@ -72,10 +50,8 @@ class FoodsController extends Controller
                 "quantity" => $request->quantity,
             ];
         }
-
-        // Put the updated cart back into the session
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Food added to cart!!');
+        session()->put('cart',$cart);
+        return redirect()->back()->with('success','Food add to cart!!');
     }
 
 public function update(Request $request)
@@ -110,14 +86,11 @@ public function update(Request $request)
     {
         if($request->key){
             $cart = session()->get('cart');
-            if(isset($cart[$request->key])){
-                unset($cart[$request->key]);
+            if(isset($cart[$request->id])){
+                unset($cart[$request->id]);
                 session()->put('cart',$cart);
             }
-            session()->flash('success','Food has been removed!!');
+            session()->flash('success','Food have been remove!!');
         }
-
-        return redirect()->back();
     }
-
 }

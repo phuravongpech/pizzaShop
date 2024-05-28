@@ -19,20 +19,15 @@
                                     <div class="ms-3">
                                         <div>
                                             <h4 class="card-title my-10">Profile</h4>
-                                            <h2 class="text-primary font-size-20 mt-3 mb-2"> {{$user->name}}</h2>
+                                            <h4 class="text-primary font-size-20 mt-3 mb-2">Jansh Wells</h4>
 
                                         </div>
                                         <div class="row my-4">
                                             <div class="col-md-12">
                                                 <div>
-                                                    <p class="text-muted mb-2 fw-medium"><i class="mdi mdi-email-outline me-2"></i>
-                                                        {{$user->email}}
+                                                    <p class="text-muted mb-2 fw-medium"><i class="mdi mdi-email-outline me-2"></i>Janshwells@probic.com
                                                     </p>
-                                                    <p class="text-muted fw-medium mb-0"><i class="mdi mdi-phone-in-talk-outline me-2"></i>
-                                                        {{$user->phone_num}}
-                                                    </p>
-                                                    <p class="text-muted fw-medium my-2">
-                                                        {{$user->description}}
+                                                    <p class="text-muted fw-medium mb-0"><i class="mdi mdi-phone-in-talk-outline me-2"></i>418-955-4703
                                                     </p>
                                                 </div>
                                             </div><!-- end col -->
@@ -66,32 +61,27 @@
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('profile.update', $user->id) }}">
-
-                        @csrf
+                    <form>
                         <!-- Form Group (username)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="name">Username (how your name will appear to other users on the site)</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="Enter your username" value="{{$user->name}}"> 
+                            <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
                         </div>
                         <!-- Form Row-->
 
                         <div class="col-md-6">
-                            <label class="small mb-1" for="phone_num">Phone number</label>
-                            <input class="form-control" id="phone_num" name="phone_num" type="tel" placeholder="Enter your phone number" value="{{$user->phone_num}}"> 
+                            <label class="small mb-1" for="inputPhone">Phone number</label>
+                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="">
                         </div>
+                        
                         <!-- Form Group (email address)-->
-                        <div class="mb-3 mt-2">
-                            <label class="small mb-1" for="email">Email Address</label>
-                            <input class="form-control" id="email" name="email" type="email" placeholder="Enter your email" value="{{$user->email}}" readonly>
-                        </div>
-                        <div class="mb-3 mt-2">
-                            <label class="small mb-1" for="description">About me</label>
-                            <textarea class="form-control" id="description" name="description" rows="8" placeholder="Description" value="{{$user->description}}"> </textarea>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress">About me</label>
+                            <textarea class="form-control" id="inputEmailAddress" rows="8" placeholder=""></textarea>
                         </div>
                         
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        <button class="btn btn-primary" type="button">Save changes</button>
                     </form>
                 </div>
             </div>
