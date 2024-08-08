@@ -72,9 +72,9 @@
                         $subTotal += $details['price'] * $details['quantity'];
                         $total += $details['price'] * $details['quantity'];
                         @endphp
-                        
+
                     <div class="product-cart" 
-                    data-id=" {{$id}} 
+                        data-id=" {{$id}}   
                     ">
                         <div class="row mb-3 border-1 border-bottom pe-3" style="height: auto">
                             <div class="col-lg-3 col-md-2">
@@ -244,7 +244,7 @@
 @endsection
 
 <script>
-// $(document).ready(function(){
+$(document).ready(function(){
     // $('.product-qty').on('change', function() {
     //     var key = $(this).closest('.product-cart').data('id').trim();
     //     var quantity = $(this).val();
@@ -291,11 +291,9 @@
         console.log("Current value:", value);
         
         value = isNaN(value) ? 0 : value;
-        if (value < 10) {
             value++;
             $qtyInput.val(value);
             console.log("Updated value:", value);
-        }
     });
 
     // Handle decrement button click
@@ -310,11 +308,9 @@
         console.log("Current value:", value);
         
         value = isNaN(value) ? 0 : value;
-        if (value > 1) {
             value--;
             $qtyInput.val(value);
             console.log("Updated value:", value);
-        }
     });
 });
 

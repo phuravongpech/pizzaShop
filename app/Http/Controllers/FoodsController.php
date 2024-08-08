@@ -83,6 +83,8 @@ public function update(Request $request)
     if ($request->key && $request->quantity) {
         $cart = session()->get('cart');
 
+        var_dump($cart[$request->key]["quantity"] = $request->quantity);
+
         $cart[$request->key]["quantity"] = $request->quantity;
 
         session()->put('cart', $cart);
