@@ -29,12 +29,6 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-// Route::get('/menu', function () {
-//     return view('menu');
-// })->name('menu');
-
-// Route::get('/menu', [FoodController::class, 'index']);
-
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -43,6 +37,8 @@ Route::get('/menu', [FoodsController::class, 'index']);
 
 Route::get('/profile', [UserController::class, 'index'])->name('profile');
 Route::post('/profile/{id}', [UserController::class, 'update'])->name('profile.update');
+
+Route::get('/order', [UserController::class, 'order'])->name('user.order');
 
 Route::get('/address', [UserController::class, 'address'])->name('address');
 Route::post('/address/store', [UserController::class, 'storeAddress'])->name('address.store');
@@ -54,11 +50,6 @@ Route::delete('/address/delete/{id}', [UserController::class, 'deleteAddress'])-
 
 Route::get('/password', [UserController::class, 'password'])->name('password');
 Route::post('/password/{id}', [UserController::class, 'changePassword'])->name('password.change');
-
-
-Route::get('/order', function () {
-    return view('user.order');
-})->name('order');
 
 
 Route::get('/food-detail/{id}', [FoodController::class, 'show'])->name('food-detail');
@@ -92,7 +83,6 @@ Route::get('/stripe/webhook',[StripeController::class,'handleWebhook']);
  
 Route::get('/menu', [FoodsController::class, 'index']);
 Route::get('cart', [FoodsController::class, 'cart'])->name('cart');
-// Route::get('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
 Route::post('add-to-cart/{id}', [FoodsController::class, 'addToCart'])->name('add_to_cart');
 Route::patch('/update-cart', [FoodsController::class, 'update'])->name('update_cart');
 Route::delete('remove-from-cart', [FoodsController::class, 'remove'])->name('remove_from_cart');

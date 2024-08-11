@@ -116,13 +116,10 @@
                                         </div> --}}
                                         <td class="cart-product-quantity"  >
                                             <div class="input-group quantity">
-                                                <div class="input-group-prepend decrement-btn" style="cursor: pointer">
-                                                    <span class="input-group-text">-</span>
-                                                </div>
-                                                <input type="text" class="qty-input form-control" maxlength="2" value=" {{ $details['quantity'] }} ">
-                                                <div class="input-group-append increment-btn" style="cursor: pointer">
-                                                    <span class="input-group-text">+</span>
-                                                </div>
+                                                <form action="{{route('update_cart')}} method="PATCH">
+                                                    @csrf
+                                                    <input type="number" class="qty-input form-control" maxlength="2" value="{{ $details['quantity'] }}">
+                                                </form>
                                             </div>
                                         </td>
                                     </div>
@@ -243,76 +240,67 @@
 
 @endsection
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-$(document).ready(function(){
-    // $('.product-qty').on('change', function() {
-    //     var key = $(this).closest('.product-cart').data('id').trim();
-    //     var quantity = $(this).val();
-    //     var data = {
-    //         '_token': $('meta[name="csrf-token"]').attr('content'),
-    //         'quantity': quantity,
-    //         'key': key
-    //     };
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to update the subtotal and total
+        function updateTotals() {
+            let newSubTotal = 0;
+            let newTotal = 0;
 
-    //     $.ajax({
-    //         url: `{{ route('update_cart') }}`,
-    //         method: 'patch',
-    //         data: data,
-    //         success: function(response){
-    //             if(response.status) {
-    //                 alertify.set('notifier','position', 'top-right');
-    //                 alertify.success('Product updated successfully');
+            // Loop through each product cart and calculate totals
+            document.querySelectorAll('.product-cart').forEach(function(cartItem) {
+                const price = parseFloat(cartItem.querySelector('.price').innerText.replace('$', ''));
+                const quantity = parseInt(cartItem.querySelector('.qty-input').value);
+                const itemTotal = price * quantity;
 
-    //                 // Update totals
-    //                 $('#subTotal').text('$' + response.subTotal.toFixed(2));
-    //                 $('#total').text('$' + response.total.toFixed(2));
+                // Update the item total in the DOM
+                cartItem.querySelector('.item-total').innerText = `$${itemTotal.toFixed(2)}`;
 
-    //                 // Update item total
-    //                 var price = parseFloat($(`.product-cart[data-id="${key}"] .price`).text().replace('$', ''));
-    //                 var newTotal = (price * quantity).toFixed(2);
-    //                 $(`.product-cart[data-id="${key}"] .item-total`).text('$' + newTotal);
-    //             }
-    //         }
-    //     });
-    // });
+                newSubTotal += itemTotal;
+                newTotal += itemTotal;
+            });
 
-    $(document).ready(function () {
-    console.log("Document is ready");
+            // Update the subtotal and total in the DOM
+            document.getElementById('subTotal').innerText = `$${newSubTotal.toFixed(2)}`;
+            document.getElementById('total').innerText = `$${newTotal.toFixed(2)}`;
+        }
 
-    // Handle increment button click
-    $('.increment-btn').click(function (e) {
-        e.preventDefault();
-        console.log("Increment button clicked");
-        
-        var $qtyInput = $(this).parents('.quantity').find('.qty-input');
-        console.log("Found input field:", $qtyInput);
-        
-        var value = parseInt($qtyInput.val(), 10);
-        console.log("Current value:", value);
-        
-        value = isNaN(value) ? 0 : value;
-            value++;
-            $qtyInput.val(value);
-            console.log("Updated value:", value);
+        // Attach change event listener to each quantity input
+        document.querySelectorAll('.qty-input').forEach(function(input) {
+            input.addEventListener('change', function() {
+                // Ensure the quantity is at least 1
+                if (this.value < 1) {
+                    this.value = 1;
+                }
+
+                // Update the totals
+                updateTotals();
+            });
+        });
     });
 
-    // Handle decrement button click
-    $('.decrement-btn').click(function (e) {
-        e.preventDefault();
-        console.log("Decrement button clicked");
-        
-        var $qtyInput = $(this).parents('.quantity').find('.qty-input');
-        console.log("Found input field:", $qtyInput);
-        
-        var value = parseInt($qtyInput.val(), 10);
-        console.log("Current value:", value);
-        
-        value = isNaN(value) ? 0 : value;
-            value--;
-            $qtyInput.val(value);
-            console.log("Updated value:", value);
+    $(document).on('change', '.qty-input', function() {
+        var newQuantity = $(this).val();
+        var key = $(this).closest('.product-cart').data('id');
+
+        $.ajax({
+            url: '{{ route("update_cart") }}',  // Make sure the route name matches
+            method: "PATCH", // Correct HTTP method for updating
+            data: {
+                key: key,
+                quantity: newQuantity,
+                _token: '{{ csrf_token() }}' // Ensure CSRF token is included
+            },
+            success: function(response) {
+                if (response.status === 'Cart updated!') {
+                    $('#subTotal').text('$' + response.subTotal);
+                    $('#total').text('$' + response.total);
+                } else {
+                    alert('Failed to update cart');
+                }
+            }
+        });
     });
-});
-
-
 </script>

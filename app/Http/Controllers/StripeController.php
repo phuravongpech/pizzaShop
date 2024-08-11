@@ -84,11 +84,14 @@ class StripeController extends Controller
             $ids = explode('-', $id); // function splits the string $id into an array using '-' as the separator.
             $food_id = $ids[0]; //extracts the food_id from the exploded array.
 
-            $size_id = isset($ids[1]) ? $ids[1] : null;
-            $crust_id = isset($ids[2]) ? $ids[2] : null;
+            $size_id = Size::where('name', $item['size'])->first()->id;
+            $crust_id = Crust::where('name', $item['crust'])->first()->id;
+
+            $crust_id = $crust_id == 'null' ? null : $crust_id;
+            $size_id = $size_id == 'null' ? null : $size_id;
 
             if($size_id && $crust_id){
-                
+
                 $orderDetail = new OrderDetail();
                 $orderDetail->order_id = $order->id;
                 $orderDetail->food_id = $food_id;

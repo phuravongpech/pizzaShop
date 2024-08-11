@@ -6,6 +6,8 @@ use App\Rules\MatchOldPw;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Address;
+use App\Models\OrderDetail;
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 
@@ -159,6 +161,18 @@ class UserController extends Controller
 
         // Redirect the user to the home page with a success message
     
+
+public function order()
+{
+    // Fetch orders with their related order details, food, size, and crust data
+    $orders = Order::with('orderDetails.food', 'orderDetails.size', 'orderDetails.crust')
+        ->where('customer_id', auth()->user()->id)
+        ->get();
+
+    return view('user.order', ['orders' => $orders]);
+}
+
+        
 
     /**
      * Remove the specified resource from storage.

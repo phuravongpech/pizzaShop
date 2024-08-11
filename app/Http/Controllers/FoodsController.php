@@ -57,9 +57,11 @@ class FoodsController extends Controller
         // Unique key for each item in the cart
         $key = $id . '-' . $request->input('crust', null) . '-' . $request->input('size', null);
 
+        
+
         // Check if the item is already in the cart
         if (isset($cart[$key])) {
-            $cart[$key]['quantity']++;
+            $cart[$key]['quantity'] += $request->quantity;
         } else {
             // Add the item to the cart
             $cart[$key] = [
@@ -78,33 +80,33 @@ class FoodsController extends Controller
         return redirect()->back()->with('success', 'Food added to cart!!');
     }
 
-public function update(Request $request)
-{
-    if ($request->key && $request->quantity) {
-        $cart = session()->get('cart');
-
-        var_dump($cart[$request->key]["quantity"] = $request->quantity);
-
-        $cart[$request->key]["quantity"] = $request->quantity;
-
-        session()->put('cart', $cart);
-
-        $subTotal = 0;
-        $total = 0;
-        foreach ($cart as $details) {
-            $subTotal += $details['price'] * $details['quantity'];
-            $total += $details['price'] * $details['quantity'];
+    public function update(Request $request)
+    {
+        if ($request->key && $request->quantity) {
+            $cart = session()->get('cart');
+    
+            // Update the cart with the new quantity
+            $cart[$request->key]["quantity"] = $request->quantity;
+    
+            session()->put('cart', $cart);
+    
+            $subTotal = 0;
+            $total = 0;
+            foreach ($cart as $details) {
+                $subTotal += $details['price'] * $details['quantity'];
+                $total += $details['price'] * $details['quantity'];
+            }
+    
+            return response()->json([
+                'status' => 'Cart updated!',
+                'subTotal' => $subTotal,
+                'total' => $total
+            ]);
         }
-
-        return response()->json([
-            'status' => 'Cart updated!',
-            'subTotal' => $subTotal,
-            'total' => $total
-        ]);
+    
+        return response()->json(['status' => 'Failed to update cart'], 400);
     }
-
-    return response()->json(['status' => 'Failed to update cart'], 400);
-}
+    
 
 
 

@@ -7,6 +7,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     @include('components.stylesheets')
 

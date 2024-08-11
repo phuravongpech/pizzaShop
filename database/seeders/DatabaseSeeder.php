@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             FoodTableSeeder::class,
             SizeSeeder::class,
             CrustSeeder::class,
+            AddressTableSeeder::class,
         ]);
     }
 }
