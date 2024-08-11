@@ -9,7 +9,7 @@ use Filament\Widgets\BarChartWidget;
 
 class userGrowth extends BarChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'User Growth';
     protected static ?int $sort = 3;
     protected static string $color = 'info';
 

@@ -20,7 +20,7 @@ class AddressResource extends Resource
     protected static ?string $model = Address::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
+    protected static ?string $navigationGroup = "User";
     public static function form(Form $form): Form
     {
         return $form
